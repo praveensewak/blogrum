@@ -75,6 +75,7 @@
     <Compile Include="Services\Posts\IPostService.cs" />
     <Compile Include="Services\Posts\PostService.cs" />
     <Compile Include="Services\ServiceExtensions.cs" />
+    <Compile Include="Site.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Blogrum.Core.Site.Title</title>
+
+    <!-- Le styles -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css' />
+    @Styles.Render("~/content/css/admin")
+    @Scripts.Render("~/scripts/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">@Blogrum.Core.Site.Title</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        Logged in as <a href="#" class="navbar-link">Username</a>
+                    </p>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    @if (!String.IsNullOrEmpty(ViewBag.PageTitle))
+    {
+        <header class="jumbotron subhead">
+            <div class="container-fluid">
+                <h1>@ViewBag.PageTitle</h1>
+                @if (!String.IsNullOrEmpty(ViewBag.PageSubTitle))
+                {
+                    <p class="lead">@ViewBag.PageSubTitle</p>
+                }
+            </div>
+        </header>
+    }
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            @RenderBody()
+        </div>
+        
+        <hr />
+        <footer>
+            <p>&copy; @Blogrum.Core.Site.Title v@(Blogrum.Core.Site.Version) @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/scripts/admin")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

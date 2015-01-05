@@ -1,0 +1,22 @@
+/*
+
+Blogrum Style CSS
+Author: Praveen Sewak
+Website: http://praveensewak.com
+
+*/
+body {
+  padding-top: 130px;
+  background-color: #f4f4f4;
+}
+a:hover {
+  text-decoration: none;
+}
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#content {
+  max-width: 100%;
+  padding: 0 25px;
+}

@@ -23,6 +23,9 @@ namespace Blogrum
                 "~/Content/css/bootplus.css",
                 "~/Content/css/bootplus-responsive.css",
                 "~/Content/css/font-awesome.css",
+                "~/Content/libs/sweet-alert/sweet-alert.css",
+                "~/Content/libs/ghost/dropzone.css",
+                "~/Content/libs/ghost/editor.css",
                 "~/Content/css/admin.css"));
 
             #endregion
@@ -43,7 +46,10 @@ namespace Blogrum
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.unobtrusive*",
                 "~/Scripts/jquery.validate*",
-                "~/Scripts/bootstrap.js"));
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/libs/sweet-alert/sweet-alert.js",
+                "~/Scripts/libs/ghost/dropzone.js",
+                "~/Scripts/libs/ghost/ghostdown.js"));
 
             #endregion
         }

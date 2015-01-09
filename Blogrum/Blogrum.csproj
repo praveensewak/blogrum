@@ -172,6 +172,10 @@
       <DependentUpon>theme.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\libs\ghost\dropzone.css" />
+    <Content Include="Content\libs\ghost\editor.css" />
+    <Content Include="Content\libs\sweet-alert\sweet-alert.css" />
+    <Content Include="Content\libs\sweet-alert\sweet-alert.html" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -219,6 +223,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Content\css\admin.less" />
+    <Content Include="Areas\Admin\Views\Dashboard\Editor.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -236,7 +241,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.2.0.debug.js" />
     <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\libs\ghost\dropzone.js" />
+    <Content Include="Scripts\libs\ghost\ghostdown.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\libs\sweet-alert\sweet-alert.js" />
+    <Content Include="Scripts\libs\sweet-alert\sweet-alert.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

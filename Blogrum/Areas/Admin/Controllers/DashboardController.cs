@@ -35,17 +35,42 @@ namespace Blogrum.Areas.Admin.Controllers
         public ActionResult Upload()
         {
             bool success = true;
-            string fileName = "";
+            string filename = "",
+                path = "";
             try
             {
                 foreach (string name in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[name];
-                    fileName = file.FileName;
+                    filename = CleanFilename(file.FileName);
 
                     if (file != null && file.ContentLength > 0)
                     {
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}
+                        string year = DateTime.Now.Year.ToString("0000");
+                        string month = DateTime.Now.Month.ToString("00");
+
+                        var mediaDirectory = new DirectoryInfo(string.Format("{0}media", Server.MapPath(@"\")));
+                        string pathString = Path.Combine(mediaDirectory.ToString(), string.Format("images\\{0}\\{1}", year, month));
+                        
+                        if (!Directory.Exists(pathString))
+                            Directory.CreateDirectory(pathString);
+
+                        path = string.Format("{0}\\{1}", pathString, filename);
+
+                        // check file exists
+                        int count = 1;
+                        string fileNameOnly = Path.GetFileNameWithoutExtension(path);
+                        string extension = Path.GetExtension(path);
+                        string directoryPath = Path.GetDirectoryName(path);
+
+                        while (FileExists(path))
+                        {
+                            string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
+                            filename = tempFileName + extension;
+                            path = Path.Combine(directoryPath, filename);
+                        }
+
+                        file.SaveAs(path);
                     }
                 }
             }
@@ -55,9 +80,9 @@ namespace Blogrum.Areas.Admin.Controllers
             }
 
             if (success)
-                return Json(new { Message = fileName });
+                return Json(new { path = path });
 
-            return Json(new { Message = "Error in saving file." });
+            return Json(new { message = "Error in saving file.", path = "" });
         }
 
         #endregion
@@ -65,6 +90,16 @@ namespace Blogrum.Areas.Admin.Controllers
         #endregion
 
         #region Utilities
+
+        private static string CleanFilename(string filename)
+        {
+            return Path.GetInvalidFileNameChars().Aggregate(filename, (current, c) => current.Replace(c.ToString(), string.Empty));
+        }
+
+        private static bool FileExists(string path)
+        {
+            return System.IO.File.Exists(path);
+        }
 
         #endregion
     }

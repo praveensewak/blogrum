@@ -274,6 +274,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Controllers\" />
+    <Folder Include="media\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

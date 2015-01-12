@@ -7906,6 +7906,26 @@ Showdown.converter = function(a) {
 				updatePreview();
 			});
 
+			editor.setOption("extraKeys", {
+			    "Shift-Ctrl-I": function (cm) {
+			        cm.replaceSelection("![]");
+			        return false;
+                    event.preventDefault();
+			    }
+			});
+
+			CodeMirror.prototype.simpleShortcutSyntax = {
+			    bold: "**$1**",
+			    italic: "*$1*",
+			    strike: "~~$1~~",
+			    code: "`$1`",
+			    link: "[$1](http://)",
+			    image: "![$1](http://)",
+			    blockquote: "> $1"
+			};
+
+
+
 			updatePreview();
 
 			// Sync scrolling

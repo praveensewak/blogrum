@@ -32,7 +32,7 @@ namespace Blogrum.Areas.Admin
             context.MapRouteLowercase(
                 "AdminUpdate",
                 "Admin/imgupload",
-                new { controller = "Dashboard", action = "Upload", id = UrlParameter.Optional },
+                new { controller = "Dashboard", action = "ImageUpload", id = UrlParameter.Optional },
                 new[] { "Blogrum.Areas.Admin.Controllers" }
             );
 

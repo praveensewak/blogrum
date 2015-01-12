@@ -32,11 +32,11 @@ namespace Blogrum.Areas.Admin.Controllers
         #region Image Uploader
 
         [HttpPost]
-        public ActionResult Upload()
+        public ActionResult ImageUpload()
         {
             bool success = true;
             string filename = "",
-                path = "";
+                imagePath = "";
             try
             {
                 foreach (string name in Request.Files)
@@ -50,27 +50,16 @@ namespace Blogrum.Areas.Admin.Controllers
                         string month = DateTime.Now.Month.ToString("00");
 
                         var mediaDirectory = new DirectoryInfo(string.Format("{0}media", Server.MapPath(@"\")));
-                        string pathString = Path.Combine(mediaDirectory.ToString(), string.Format("images\\{0}\\{1}", year, month));
+                        string imageDirectory = Path.Combine(mediaDirectory.ToString(), string.Format("images\\{0}\\{1}", year, month));
                         
-                        if (!Directory.Exists(pathString))
-                            Directory.CreateDirectory(pathString);
+                        if (!Directory.Exists(imageDirectory))
+                            Directory.CreateDirectory(imageDirectory);
 
-                        path = string.Format("{0}\\{1}", pathString, filename);
-
-                        // check file exists
-                        int count = 1;
-                        string fileNameOnly = Path.GetFileNameWithoutExtension(path);
-                        string extension = Path.GetExtension(path);
-                        string directoryPath = Path.GetDirectoryName(path);
-
-                        while (FileExists(path))
-                        {
-                            string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                            filename = tempFileName + extension;
-                            path = Path.Combine(directoryPath, filename);
-                        }
+                        var path = string.Format("{0}\\{1}", imageDirectory, filename);
 
                         file.SaveAs(path);
+
+                        imagePath = string.Format("/media/images/{0}/{1}/{2}", year, month, filename);
                     }
                 }
             }
@@ -80,7 +69,7 @@ namespace Blogrum.Areas.Admin.Controllers
             }
 
             if (success)
-                return Json(new { path = path });
+                return Json(new { path = imagePath });
 
             return Json(new { message = "Error in saving file.", path = "" });
         }

@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Categories";
+    ViewBag.PageTitle = "Categories";
+    ViewBag.PageSubTitle = "All your categories here.";
+}
+
+<div class="span4 sidebar">
+    <ul class="nav nav-list sidenav" data-bind="foreach: Categories, visible: Categories().length > 0">
+        <li>
+            <a href="#" data-bind="click: edit">
+                <span data-bind="text: Name"></span>
+            </a>
+        </li>
+    </ul>
+    <br />
+    <button class="btn btn-default" type="button" data-bind="click: addCategory"><i class="fa fa-fw fa-plus"></i>Add New Category</button>
+    <button class="btn btn-success" type="button" data-bind="click: saveData"><i class="fa fa-fw fa-save"></i>Save Changes</button>
+    <button class="btn btn-default" type="button" data-bind="click: refreshData">Refresh</button>
+</div>
+
+<div class="span8 main">
+    <div class="card" data-bind="slideIn: editCategoryItem, with: editCategoryItem">
+        <div class="card-body">
+            <label for="tbTitle">Title: </label>
+            <input id="tbTitle" type="text" class="input-block-level" data-bind="value: Name" />
+            <label for="tbUrlSlug">Url slug: </label>
+            <input id="tbUrlSlug" type="text" class="input-block-level" data-bind="value: UrlSlug" />
+            <label for="tbDescription">Description: </label>
+            <textarea id="tbDescription" class="input-block-level" data-bind="value: Description"></textarea>
+        </div>
+        <div class="card-actions">
+            <button class="btn btn-primary" data-bind="click: commit">Accept</button>
+            <button class="btn" data-bind="click: reset">Cancel</button>
+            <button class="pull-right btn btn-danger" data-bind="click: $parent.deleteCategory">Remove</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="/scripts/app/post/category.js"></script>
+}

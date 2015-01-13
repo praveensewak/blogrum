@@ -12,6 +12,7 @@ namespace Blogrum.App_Start
     using Ninject.Web.Common;
 
     using Blogrum.Core.Services.Posts;
+    using Blogrum.Core.Repository;
 
     public static class NinjectWebCommon 
     {
@@ -64,7 +65,10 @@ namespace Blogrum.App_Start
         private static void RegisterServices(IKernel kernel)
         {
 
+            kernel.Bind(typeof(IRepository<>)).To(typeof(MainRepository<>));
+
             kernel.Bind<IPostService>().To<PostService>();
+            kernel.Bind<ICategoryService>().To<CategoryService>();
         }        
     }
 }

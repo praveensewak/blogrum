@@ -23,6 +23,20 @@ namespace Blogrum.Areas.Admin
             );
 
             context.MapRouteLowercase(
+                "AdminCategoryData",
+                "admin/categories/data",
+                new { controller = "Dashboard", action = "GetCategoryData", id = UrlParameter.Optional },
+                new[] { "Blogrum.Areas.Admin.Controllers" }
+            );
+
+            context.MapRouteLowercase(
+                "AdminCategoryDataSave",
+                "admin/categories/save",
+                new { controller = "Dashboard", action = "SaveCategoryData", id = UrlParameter.Optional },
+                new[] { "Blogrum.Areas.Admin.Controllers" }
+            );
+
+            context.MapRouteLowercase(
                 "AdminEditor",
                 "Admin/editor/{id}",
                 new { controller = "Dashboard", action = "Editor", id = UrlParameter.Optional },

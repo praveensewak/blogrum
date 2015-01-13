@@ -49,7 +49,13 @@ namespace Blogrum
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/libs/sweet-alert/sweet-alert.js",
                 "~/Scripts/libs/ghost/dropzone.js",
-                "~/Scripts/libs/ghost/ghostdown.js"));
+                "~/Scripts/libs/ghost/ghostdown.js",
+                "~/Scripts/knockout-{version}.js",
+                "~/Scripts/knockout.sortable.js",
+                "~/Scripts/knockout.mapping.js",
+                "~/Scripts/knockout.helpers.js",
+                "~/Scripts/knockout.lazyload.js",
+                "~/Scripts/knockout.contextmenu.js"));
 
             #endregion
         }

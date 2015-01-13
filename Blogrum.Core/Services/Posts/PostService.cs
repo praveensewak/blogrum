@@ -54,16 +54,51 @@ namespace Blogrum.Core.Services.Posts
 
             var posts = _postRepo.GetAllIncluding(p => p.Category).ToList();
             foreach (var item in posts)
-                list.Add(ToModel(item));
+                list.Add(ToSummaryModel(item));
 
             return list;
+        }
+
+        public virtual PostSaveResult SavePost(PostSaveRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException("request");
+
+            var result = new PostSaveResult();
+            var post = _postRepo.GetByID(request.Id);
+
+            if (post == null)
+                post = new Post();
+
+            ToEntity(post, request);
+
+            if (post == null)
+                _postRepo.Add(post);
+
+            _postRepo.SaveChanges();
+
+            result.PostId = post.Id;
+
+            return result;
+        }
+
+        public virtual PostSaveRequest GetPostForEdit(int id)
+        {
+            if (id == 0)
+                return null;
+
+            var post = _postRepo.GetByID(id);
+            if (post == null)
+                return null;
+
+            return ToEditModel(post);
         }
 
         #endregion
 
         #region Utilities
 
-        protected PostSummary ToModel(Post post)
+        protected PostSummary ToSummaryModel(Post post)
         {
             return new PostSummary()
             {
@@ -76,7 +111,34 @@ namespace Blogrum.Core.Services.Posts
             };
         }
 
-        
+        protected PostSaveRequest ToEditModel(Post post)
+        {
+            return new PostSaveRequest()
+            {
+                Title = post.Title,
+                ShortDescription = post.ShortDescription,
+                Description = post.Description,
+                MetaTitle = post.MetaTitle,
+                MetaKeywords = post.MetaKeywords,
+                MetaDescription = post.MetaDescription,
+                Published = post.Published,
+                CategoryId = post.CategoryId,
+            };
+        }
+
+        protected void ToEntity(Post post, PostSaveRequest request)
+        {
+            post.Id = request.Id;
+            post.Title = request.Title;
+            post.ShortDescription = request.ShortDescription;
+            post.Description = request.Description;
+            post.MetaTitle = request.MetaTitle;
+            post.MetaKeywords = request.MetaKeywords;
+            post.MetaDescription = request.MetaDescription;
+            post.Published = request.Published;
+            post.CategoryId = request.CategoryId;
+        }
+
 
         #endregion
     }

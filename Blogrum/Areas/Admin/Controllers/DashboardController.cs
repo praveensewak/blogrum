@@ -4,16 +4,26 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Blogrum.Core.Services.Posts;
+using Blogrum.Core.Models.Posts;
 
 namespace Blogrum.Areas.Admin.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseAdminController
     {
         #region Properties
+
+        protected readonly ICategoryService _categoryService;
 
         #endregion
 
         #region Ctor
+
+        public DashboardController(
+            ICategoryService categoryService)
+        {
+            this._categoryService = categoryService;
+        }
 
         #endregion
 
@@ -51,7 +61,7 @@ namespace Blogrum.Areas.Admin.Controllers
 
                         var mediaDirectory = new DirectoryInfo(string.Format("{0}media", Server.MapPath(@"\")));
                         string imageDirectory = Path.Combine(mediaDirectory.ToString(), string.Format("images\\{0}\\{1}", year, month));
-                        
+
                         if (!Directory.Exists(imageDirectory))
                             Directory.CreateDirectory(imageDirectory);
 
@@ -72,6 +82,39 @@ namespace Blogrum.Areas.Admin.Controllers
                 return Json(new { path = imagePath });
 
             return Json(new { message = "Error in saving file.", path = "" });
+        }
+
+        #endregion
+
+        #region Categories
+
+        public ActionResult Categories()
+        {
+            return View();
+        }
+
+        public JsonResult GetCategoryData()
+        {
+            var model = _categoryService.GetCategoryList();
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveCategoryData(CategoryListModel model)
+        {
+            var result = new AjaxJsonResult();
+
+            if (ModelState.IsValid)
+            {
+                _categoryService.SaveCategoryList(model);
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            result.AddError("There was an error saving categories.");
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

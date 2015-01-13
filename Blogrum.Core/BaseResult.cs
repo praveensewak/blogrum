@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Blogrum.Core.Services
+namespace Blogrum.Core
 {
     public abstract class BaseResult
     {
